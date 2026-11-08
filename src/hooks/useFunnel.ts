@@ -55,7 +55,6 @@ export function useFunnel() {
   const totalQuestions = QUESTION_STEPS.length;
   const canGoBack =
     currentStep !== 'loan-type' &&
-    currentStep !== 'step1' &&
     currentStep !== 'loading' &&
     currentStep !== 'lead-capture' &&
     currentStep !== 'rates';

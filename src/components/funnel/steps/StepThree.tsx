@@ -178,7 +178,7 @@ export function StepThree({ data, onChange, onNext }: StepThreeProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <p className="text-sm font-bold text-gray-900 capitalize">{val === 'yes' ? 'Yes' : 'No'}</p>
+                <p className="text-base font-bold text-gray-900 capitalize">{val === 'yes' ? 'Yes' : 'No'}</p>
               </motion.button>
             );
           })}

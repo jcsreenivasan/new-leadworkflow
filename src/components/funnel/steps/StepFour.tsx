@@ -38,7 +38,7 @@ export function StepFour({ data, onChange, onNext }: StepFourProps) {
                     : 'border-gray-200 bg-white hover:border-gray-300'
                 }`}
               >
-                <p className="text-sm font-bold text-gray-900">{val === 'yes' ? 'Yes, I am' : "No, I'm not"}</p>
+                <p className="text-base font-bold text-gray-900">{val === 'yes' ? 'Yes, I am' : "No, I'm not"}</p>
                 {selected ? (
                   <motion.div
                     initial={{ scale: 0 }}

@@ -78,7 +78,7 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                   alt={pt.label}
                   className={`object-contain ${pt.large ? 'w-[58px] h-[58px]' : 'w-12 h-12'}`}
                 />
-                <p className="text-xs font-bold text-gray-900 text-center">{pt.label}</p>
+                <p className="text-sm font-bold text-gray-900 text-center">{pt.label}</p>
               </motion.button>
             );
           })}
@@ -107,8 +107,8 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                 }`}
               >
                 <div className="text-left">
-                  <p className="text-sm font-bold text-gray-900">{t.label}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{t.sub}</p>
+                  <p className="text-base font-bold text-gray-900">{t.label}</p>
+                  <p className="text-sm text-gray-500 mt-0.5">{t.sub}</p>
                 </div>
                 {selected ? (
                   <motion.div
@@ -158,7 +158,7 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                   </motion.div>
                 )}
                 <img src={rt.img} alt={rt.label} className="w-[62px] h-[62px] object-contain" />
-                <p className="text-[11px] font-bold text-gray-900 text-center leading-tight">{rt.label}</p>
+                <p className="text-[13px] font-bold text-gray-900 text-center leading-tight">{rt.label}</p>
               </motion.button>
             );
           })}

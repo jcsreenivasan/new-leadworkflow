@@ -15,11 +15,12 @@ export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
   return (
     <div className="px-5 py-8">
       <div className="text-center mb-8">
-        <p className="text-xs font-black uppercase tracking-widest text-[#EA2523] mb-2">Get Started</p>
-        <h2 className="text-xl font-black text-gray-900 leading-tight">
-          What would you like to do?
+        <h1 className="text-2xl font-black text-[#233B86] leading-tight mb-2">
+          The Low Rate Leader. Everyday!
+        </h1>
+        <h2 className="text-base font-semibold" style={{ color: '#757575' }}>
+          Start your custom quote below.
         </h2>
-        <p className="text-sm text-gray-500 mt-2">Select one to get your personalized mortgage rate.</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
@@ -31,8 +32,8 @@ export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
         >
           <img src="/icons/home-purchase.png" alt="Home Purchase" className="w-16 h-16 object-contain" />
           <div>
-            <p className="text-sm font-black text-gray-900 group-hover:text-[#233B86] transition-colors">Home Purchase</p>
-            <p className="text-xs text-gray-400 mt-0.5">Buy a new home</p>
+            <p className="text-base font-black text-gray-900 group-hover:text-[#233B86] transition-colors">Home Purchase</p>
+            <p className="text-sm mt-0.5" style={{ color: '#757575' }}>Buy a new home</p>
           </div>
         </motion.button>
 
@@ -44,8 +45,8 @@ export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
         >
           <img src="/icons/home-refinance.png" alt="Home Refinance" className="w-16 h-16 object-contain" />
           <div>
-            <p className="text-sm font-black text-gray-900 group-hover:text-[#EA2523] transition-colors">Home Refinance</p>
-            <p className="text-xs text-gray-400 mt-0.5">Lower your rate</p>
+            <p className="text-base font-black text-gray-900 group-hover:text-[#EA2523] transition-colors">Home Refinance</p>
+            <p className="text-sm mt-0.5" style={{ color: '#757575' }}>Lower your rate</p>
           </div>
         </motion.button>
       </div>
