@@ -154,7 +154,6 @@ export function StepThree({ data, onChange, onNext }: StepThreeProps) {
           <QLabel n={3} />
           <h2 className="text-base font-black text-gray-900">Are you a U.S. military veteran or active duty?</h2>
         </div>
-        <p className="text-xs text-gray-500 mb-3">VA loans may offer better rates with no down payment required.</p>
         <div className="grid grid-cols-2 gap-2">
           {(['yes', 'no'] as const).map(val => {
             const selected = militaryService === val;
