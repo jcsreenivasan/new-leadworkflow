@@ -157,7 +157,7 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                     <Check size={8} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <img src={rt.img} alt={rt.label} className="w-12 h-12 object-contain" />
+                <img src={rt.img} alt={rt.label} className="w-[62px] h-[62px] object-contain" />
                 <p className="text-[11px] font-bold text-gray-900 text-center leading-tight">{rt.label}</p>
               </motion.button>
             );

@@ -6,29 +6,6 @@ interface StepLoanTypeProps {
   onNext: () => void;
 }
 
-function HomePurchaseIcon() {
-  return (
-    <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 22L24 6L42 22V42H30V30H18V42H6V22Z" stroke="#233B86" strokeWidth="2.5" strokeLinejoin="round" fill="#EEF1FB"/>
-      <circle cx="38" cy="36" r="8" fill="#16A34A"/>
-      <path d="M34.5 36L37 38.5L41.5 33.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
-function HomeRefinanceIcon() {
-  return (
-    <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 22L24 6L42 22V42H30V30H18V42H6V22Z" stroke="#233B86" strokeWidth="2.5" strokeLinejoin="round" fill="#EEF1FB"/>
-      <circle cx="38" cy="36" r="8" fill="#EA2523"/>
-      <path d="M35 36.5C35.5 34.5 37.5 33 39.5 33.5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M41 35.5C40.5 37.5 38.5 39 36.5 38.5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M39.5 33.5L41 35" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M36.5 38.5L35 37" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-    </svg>
-  );
-}
-
 export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
   const handleSelect = (type: 'home-purchase' | 'home-refinance') => {
     onChange({ loanType: type });
@@ -52,7 +29,7 @@ export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
           whileTap={{ scale: 0.96 }}
           className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-gray-200 rounded-2xl hover:border-[#233B86] transition-all group"
         >
-          <HomePurchaseIcon />
+          <img src="/icons/home-purchase.png" alt="Home Purchase" className="w-16 h-16 object-contain" />
           <div>
             <p className="text-sm font-black text-gray-900 group-hover:text-[#233B86] transition-colors">Home Purchase</p>
             <p className="text-xs text-gray-400 mt-0.5">Buy a new home</p>
@@ -65,7 +42,7 @@ export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
           whileTap={{ scale: 0.96 }}
           className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-gray-200 rounded-2xl hover:border-[#EA2523] transition-all group"
         >
-          <HomeRefinanceIcon />
+          <img src="/icons/home-refinance.png" alt="Home Refinance" className="w-16 h-16 object-contain" />
           <div>
             <p className="text-sm font-black text-gray-900 group-hover:text-[#EA2523] transition-colors">Home Refinance</p>
             <p className="text-xs text-gray-400 mt-0.5">Lower your rate</p>
