@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Check, Home, Building2, Building, LayoutGrid, ChevronRight, DollarSign } from 'lucide-react';
+import { Check, ChevronRight, Home, DollarSign } from 'lucide-react';
 import type { FunnelData } from '../../../types/funnel';
 
 interface StepOneProps {
@@ -16,22 +16,18 @@ function QLabel({ n }: { n: number }) {
   );
 }
 
-const PROPERTY_TYPES: {
-  value: FunnelData['propertyType'];
-  label: string;
-  Icon: React.ComponentType<{ size?: number; className?: string }>;
-}[] = [
-  { value: 'single-family', label: 'Single Family', Icon: Home },
-  { value: 'townhome',      label: 'Townhome',      Icon: Building2 },
-  { value: 'condo',         label: 'Condo',         Icon: Building },
-  { value: 'multi-unit',    label: 'Multi-Unit',    Icon: LayoutGrid },
+const PROPERTY_TYPES: { value: FunnelData['propertyType']; label: string; img: string }[] = [
+  { value: 'single-family', label: 'Single Family', img: '/icons/single-family.png' },
+  { value: 'townhome',      label: 'Townhome',      img: '/icons/townhome.png'      },
+  { value: 'condo',         label: 'Condo',         img: '/icons/condo.png'         },
+  { value: 'multi-unit',    label: 'Multi-Unit',    img: '/icons/multi-unit.png'    },
 ];
 
 const TIMELINES: { value: FunnelData['decisionTimeline']; label: string; sub: string }[] = [
-  { value: 'considering-now',  label: 'Considering Now',    sub: 'Ready to move forward' },
-  { value: '30-days',          label: 'Within 30 Days',     sub: 'Looking soon'           },
-  { value: '2-4-months',       label: 'In 2–4 Months',      sub: 'Still planning'         },
-  { value: 'just-researching', label: 'Just Researching',   sub: 'Exploring options'      },
+  { value: 'considering-now',  label: 'Considering Now',  sub: 'Ready to move forward' },
+  { value: '30-days',          label: 'Within 30 Days',   sub: 'Looking soon'           },
+  { value: '2-4-months',       label: 'In 2–4 Months',    sub: 'Still planning'         },
+  { value: 'just-researching', label: 'Just Researching', sub: 'Exploring options'      },
 ];
 
 const RESIDENCY_TYPES: {
@@ -39,8 +35,8 @@ const RESIDENCY_TYPES: {
   label: string;
   Icon: React.ComponentType<{ size?: number; className?: string }>;
 }[] = [
-  { value: 'primary',     label: 'Primary Home',  Icon: Home        },
-  { value: 'second-home', label: 'Second Home',   Icon: ({ size, className }) => (
+  { value: 'primary',     label: 'Primary Home',       Icon: Home },
+  { value: 'second-home', label: 'Second Home',        Icon: ({ size, className }) => (
     <svg width={size ?? 20} height={size ?? 20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className}>
       <path d="M20 20v-8l-8-7-8 7v8h5v-5h6v5z"/>
       <circle cx="17" cy="6" r="3"/>
@@ -65,7 +61,6 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
         <div className="grid grid-cols-2 gap-2">
           {PROPERTY_TYPES.map(pt => {
             const selected = propertyType === pt.value;
-            const { Icon } = pt;
             return (
               <motion.button
                 key={pt.value}
@@ -87,7 +82,7 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <Icon size={22} className={selected ? 'text-[#EA2523]' : 'text-gray-500'} />
+                <img src={pt.img} alt={pt.label} className="w-12 h-12 object-contain" />
                 <p className="text-xs font-bold text-gray-900 text-center">{pt.label}</p>
               </motion.button>
             );

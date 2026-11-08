@@ -4,7 +4,6 @@ export interface FunnelData {
   decisionTimeline: 'considering-now' | '30-days' | '2-4-months' | 'just-researching' | null;
   residencyType: 'primary' | 'second-home' | 'rental' | null;
   zipCode: string;
-  state: string;
   propertyValue: number;
   downPayment: number;
   annualIncome: number;
@@ -25,8 +24,8 @@ export interface RateData {
   totalInterest: number;
 }
 
-export type FunnelStep = 'step1' | 'step2' | 'step3' | 'step4' | 'loading' | 'lead-capture' | 'rates';
+export type FunnelStep = 'loan-type' | 'step1' | 'step2' | 'step3' | 'step4' | 'loading' | 'lead-capture' | 'rates';
 
-export const STEP_ORDER: FunnelStep[] = ['step1', 'step2', 'step3', 'step4', 'loading', 'lead-capture', 'rates'];
+export const STEP_ORDER: FunnelStep[] = ['loan-type', 'step1', 'step2', 'step3', 'step4', 'loading', 'lead-capture', 'rates'];
 
 export const QUESTION_STEPS: FunnelStep[] = ['step1', 'step2', 'step3', 'step4'];

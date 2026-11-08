@@ -8,7 +8,6 @@ const DEFAULT_DATA: FunnelData = {
   decisionTimeline: null,
   residencyType: null,
   zipCode: '',
-  state: '',
   propertyValue: 500000,
   downPayment: 50000,
   annualIncome: 85000,
@@ -18,13 +17,10 @@ const DEFAULT_DATA: FunnelData = {
   lead: { name: '', email: '', phone: '' },
 };
 
-export function useFunnel(initialLoanType?: 'home-purchase' | 'home-refinance' | null) {
-  const [currentStep, setCurrentStep] = useState<FunnelStep>('step1');
+export function useFunnel() {
+  const [currentStep, setCurrentStep] = useState<FunnelStep>('loan-type');
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
-  const [data, setData] = useState<FunnelData>({
-    ...DEFAULT_DATA,
-    loanType: initialLoanType ?? null,
-  });
+  const [data, setData] = useState<FunnelData>(DEFAULT_DATA);
 
   const updateData = useCallback((updates: Partial<FunnelData>) => {
     setData(prev => ({ ...prev, ...updates }));
@@ -32,7 +28,7 @@ export function useFunnel(initialLoanType?: 'home-purchase' | 'home-refinance' |
 
   const reset = useCallback(() => {
     setData(DEFAULT_DATA);
-    setCurrentStep('step1');
+    setCurrentStep('loan-type');
     setDirection('forward');
   }, []);
 
@@ -58,6 +54,7 @@ export function useFunnel(initialLoanType?: 'home-purchase' | 'home-refinance' |
   const isQuestionStep = currentQuestionIndex !== -1;
   const totalQuestions = QUESTION_STEPS.length;
   const canGoBack =
+    currentStep !== 'loan-type' &&
     currentStep !== 'step1' &&
     currentStep !== 'loading' &&
     currentStep !== 'lead-capture' &&

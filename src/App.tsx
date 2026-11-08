@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useFunnel } from './hooks/useFunnel';
 import { FunnelLayout } from './components/funnel/FunnelLayout';
+import { StepLoanType } from './components/funnel/steps/StepLoanType';
 import { StepOne } from './components/funnel/steps/StepOne';
 import { StepTwo } from './components/funnel/steps/StepTwo';
 import { StepThree } from './components/funnel/steps/StepThree';
@@ -9,44 +10,10 @@ import { StepFour } from './components/funnel/steps/StepFour';
 import { LeadCapture } from './components/funnel/LeadCapture';
 import { LoadingScreen } from './components/funnel/LoadingScreen';
 import { RatesDisplay } from './components/funnel/RatesDisplay';
-import type { FunnelData } from './types/funnel';
-
-// ─── Inline SVG icons for loan-type cards ──────────────────────────────────────
-
-function HomePurchaseIcon({ size = 40 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 22L24 6L42 22V42H30V30H18V42H6V22Z" stroke="#233B86" strokeWidth="2.5" strokeLinejoin="round" fill="#EEF1FB"/>
-      <path d="M18 42V30H30V42" stroke="#233B86" strokeWidth="2.5" strokeLinejoin="round"/>
-      <circle cx="38" cy="36" r="8" fill="#16A34A"/>
-      <path d="M34.5 36L37 38.5L41.5 33.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
-function HomeRefinanceIcon({ size = 40 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 22L24 6L42 22V42H30V30H18V42H6V22Z" stroke="#233B86" strokeWidth="2.5" strokeLinejoin="round" fill="#EEF1FB"/>
-      <path d="M18 42V30H30V42" stroke="#233B86" strokeWidth="2.5" strokeLinejoin="round"/>
-      <circle cx="38" cy="36" r="8" fill="#EA2523"/>
-      <path d="M35 36.5C35.5 34.5 37.5 33 39.5 33.5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M41 35.5C40.5 37.5 38.5 39 36.5 38.5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M39.5 33.5L41 35" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M36.5 38.5L35 37" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-    </svg>
-  );
-}
 
 // ─── FunnelModal ───────────────────────────────────────────────────────────────
 
-interface FunnelModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  initialLoanType: 'home-purchase' | 'home-refinance' | null;
-}
-
-function FunnelModal({ isOpen, onClose, initialLoanType }: FunnelModalProps) {
+function FunnelModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const {
     currentStep,
     direction,
@@ -58,19 +25,12 @@ function FunnelModal({ isOpen, onClose, initialLoanType }: FunnelModalProps) {
     isQuestionStep,
     totalQuestions,
     canGoBack,
-  } = useFunnel(initialLoanType);
-
-  // Seed initialLoanType once when modal opens
-  useEffect(() => {
-    if (initialLoanType) {
-      updateData({ loanType: initialLoanType } as Partial<FunnelData>);
-    }
-  // Only run when the modal first opens (initialLoanType won't change mid-session)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  } = useFunnel();
 
   const renderStep = () => {
     switch (currentStep) {
+      case 'loan-type':
+        return <StepLoanType onChange={updateData} onNext={goNext} />;
       case 'step1':
         return <StepOne data={data} onChange={updateData} onNext={goNext} />;
       case 'step2':
@@ -119,19 +79,13 @@ const TRUST_BADGES = [
 ];
 
 const RATINGS = [
-  { src: '/zillow-logo.png',  label: 'Zillow',  score: '4.98' },
-  { src: '/google-logo.png',  label: 'Google',  score: '4.3'  },
-  { src: '/yelp-logo.png',    label: 'Yelp',    score: '4.7'  },
+  { src: '/zillow-logo.png', label: 'Zillow', score: '4.98' },
+  { src: '/google-logo.png', label: 'Google', score: '4.3'  },
+  { src: '/yelp-logo.png',   label: 'Yelp',   score: '4.7'  },
 ];
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [pendingLoanType, setPendingLoanType] = useState<'home-purchase' | 'home-refinance' | null>(null);
-
-  const handleLoanTypeSelect = (type: 'home-purchase' | 'home-refinance') => {
-    setPendingLoanType(type);
-    setIsOpen(true);
-  };
 
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
@@ -169,36 +123,19 @@ export default function App() {
           </h2>
           <p className="text-gray-500 text-sm mb-8">Start your custom quote below.</p>
 
-          {/* Loan type cards */}
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            {/* Home Purchase */}
-            <motion.button
-              onClick={() => handleLoanTypeSelect('home-purchase')}
-              whileHover={{ scale: 1.03, boxShadow: '0 12px 32px rgba(35,59,134,0.18)' }}
-              whileTap={{ scale: 0.97 }}
-              className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-gray-200 rounded-2xl hover:border-[#233B86] transition-all group"
-            >
-              <HomePurchaseIcon size={48} />
-              <div>
-                <p className="text-sm font-black text-gray-900 group-hover:text-[#233B86] transition-colors">Home Purchase</p>
-                <p className="text-xs text-gray-400 mt-0.5">Buy a new home</p>
-              </div>
-            </motion.button>
-
-            {/* Home Refinance */}
-            <motion.button
-              onClick={() => handleLoanTypeSelect('home-refinance')}
-              whileHover={{ scale: 1.03, boxShadow: '0 12px 32px rgba(234,37,35,0.18)' }}
-              whileTap={{ scale: 0.97 }}
-              className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-gray-200 rounded-2xl hover:border-[#EA2523] transition-all group"
-            >
-              <HomeRefinanceIcon size={48} />
-              <div>
-                <p className="text-sm font-black text-gray-900 group-hover:text-[#EA2523] transition-colors">Home Refinance</p>
-                <p className="text-xs text-gray-400 mt-0.5">Lower your rate</p>
-              </div>
-            </motion.button>
-          </div>
+          {/* CTA */}
+          <motion.button
+            onClick={() => setIsOpen(true)}
+            whileHover={{ scale: 1.03, boxShadow: '0 16px 48px rgba(234,37,35,0.30)' }}
+            whileTap={{ scale: 0.97 }}
+            className="px-10 py-4 bg-[#EA2523] text-white font-bold text-base rounded-2xl transition-all inline-flex items-center gap-3 mb-8"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" strokeLinecap="round" strokeLinejoin="round"/>
+              <polyline points="9 22 9 12 15 12 15 22" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Get My Mortgage Rate
+          </motion.button>
 
           {/* Trust badges */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -246,11 +183,7 @@ export default function App() {
       </footer>
 
       {isOpen && (
-        <FunnelModal
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          initialLoanType={pendingLoanType}
-        />
+        <FunnelModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
       )}
     </div>
   );
