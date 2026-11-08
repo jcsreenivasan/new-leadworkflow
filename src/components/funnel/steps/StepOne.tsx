@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Check, ChevronRight, Home, DollarSign } from 'lucide-react';
+import { Check, ChevronRight } from 'lucide-react';
 import type { FunnelData } from '../../../types/funnel';
 
 interface StepOneProps {
@@ -16,11 +16,11 @@ function QLabel({ n }: { n: number }) {
   );
 }
 
-const PROPERTY_TYPES: { value: FunnelData['propertyType']; label: string; img: string }[] = [
-  { value: 'single-family', label: 'Single Family', img: '/icons/single-family.png' },
-  { value: 'townhome',      label: 'Townhome',      img: '/icons/townhome.png'      },
-  { value: 'condo',         label: 'Condo',         img: '/icons/condo.png'         },
-  { value: 'multi-unit',    label: 'Multi-Unit',    img: '/icons/multi-unit.png'    },
+const PROPERTY_TYPES: { value: FunnelData['propertyType']; label: string; img: string; large?: boolean }[] = [
+  { value: 'single-family', label: 'Single Family', img: '/icons/single-family.png', large: true  },
+  { value: 'townhome',      label: 'Townhome',      img: '/icons/townhome.png'                    },
+  { value: 'condo',         label: 'Condo',         img: '/icons/condo.png'                       },
+  { value: 'multi-unit',    label: 'Multi-Unit',    img: '/icons/multi-unit.png',    large: true  },
 ];
 
 const TIMELINES: { value: FunnelData['decisionTimeline']; label: string; sub: string }[] = [
@@ -30,19 +30,10 @@ const TIMELINES: { value: FunnelData['decisionTimeline']; label: string; sub: st
   { value: 'just-researching', label: 'Just Researching', sub: 'Exploring options'      },
 ];
 
-const RESIDENCY_TYPES: {
-  value: FunnelData['residencyType'];
-  label: string;
-  Icon: React.ComponentType<{ size?: number; className?: string }>;
-}[] = [
-  { value: 'primary',     label: 'Primary Home',       Icon: Home },
-  { value: 'second-home', label: 'Second Home',        Icon: ({ size, className }) => (
-    <svg width={size ?? 20} height={size ?? 20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M20 20v-8l-8-7-8 7v8h5v-5h6v5z"/>
-      <circle cx="17" cy="6" r="3"/>
-    </svg>
-  )},
-  { value: 'rental',      label: 'Rental / Investment', Icon: DollarSign },
+const RESIDENCY_TYPES: { value: FunnelData['residencyType']; label: string; img: string }[] = [
+  { value: 'primary',     label: 'Primary Home',       img: '/icons/primary-home.png' },
+  { value: 'second-home', label: 'Second Home',        img: '/icons/second-home.png'  },
+  { value: 'rental',      label: 'Rental / Investment', img: '/icons/rental.png'      },
 ];
 
 export function StepOne({ data, onChange, onNext }: StepOneProps) {
@@ -82,7 +73,11 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <img src={pt.img} alt={pt.label} className="w-12 h-12 object-contain" />
+                <img
+                  src={pt.img}
+                  alt={pt.label}
+                  className={`object-contain ${pt.large ? 'w-[58px] h-[58px]' : 'w-12 h-12'}`}
+                />
                 <p className="text-xs font-bold text-gray-900 text-center">{pt.label}</p>
               </motion.button>
             );
@@ -141,7 +136,6 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
         <div className="grid grid-cols-3 gap-2">
           {RESIDENCY_TYPES.map(rt => {
             const selected = residencyType === rt.value;
-            const { Icon } = rt;
             return (
               <motion.button
                 key={rt.value}
@@ -163,7 +157,7 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                     <Check size={8} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <Icon size={20} className={selected ? 'text-[#EA2523]' : 'text-gray-500'} />
+                <img src={rt.img} alt={rt.label} className="w-12 h-12 object-contain" />
                 <p className="text-[11px] font-bold text-gray-900 text-center leading-tight">{rt.label}</p>
               </motion.button>
             );
