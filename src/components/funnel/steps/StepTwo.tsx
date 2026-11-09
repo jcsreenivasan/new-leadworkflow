@@ -42,7 +42,7 @@ function PriceSlider({
         <div className="flex items-baseline gap-2">
           <span className="text-xl font-black text-[#1E3569]">{fmtCurrency(value)}</span>
           {badge && (
-            <span className="text-xs font-bold text-[#EA2523] bg-[#EA2523]/10 px-2 py-0.5 rounded-full">{badge}</span>
+            <span className="text-xs font-bold text-gray-800 bg-gray-200 px-2 py-0.5 rounded-full">{badge}</span>
           )}
         </div>
       </div>

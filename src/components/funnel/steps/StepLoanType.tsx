@@ -32,7 +32,7 @@ export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
         >
           <img src="/icons/home-purchase.png" alt="Home Purchase" className="w-16 h-16 object-contain" />
           <div>
-            <p className="text-base font-black text-gray-900 group-hover:text-[#233B86] transition-colors">Home Purchase</p>
+            <p className="text-base font-black text-gray-900 group-hover:text-[#233B86] transition-colors whitespace-nowrap">Home Purchase</p>
             <p className="text-sm mt-0.5" style={{ color: '#757575' }}>Buy a new home</p>
           </div>
         </motion.button>
@@ -45,7 +45,7 @@ export function StepLoanType({ onChange, onNext }: StepLoanTypeProps) {
         >
           <img src="/icons/home-refinance.png" alt="Home Refinance" className="w-16 h-16 object-contain" />
           <div>
-            <p className="text-base font-black text-gray-900 group-hover:text-[#EA2523] transition-colors">Home Refinance</p>
+            <p className="text-base font-black text-gray-900 group-hover:text-[#EA2523] transition-colors whitespace-nowrap">Home Refinance</p>
             <p className="text-sm mt-0.5" style={{ color: '#757575' }}>Lower your rate</p>
           </div>
         </motion.button>
