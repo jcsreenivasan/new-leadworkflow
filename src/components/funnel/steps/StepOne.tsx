@@ -16,11 +16,11 @@ function QLabel({ n }: { n: number }) {
   );
 }
 
-const PROPERTY_TYPES: { value: FunnelData['propertyType']; label: string; img: string; large?: boolean }[] = [
-  { value: 'single-family', label: 'Single Family', img: '/icons/single-family.png', large: true  },
-  { value: 'townhome',      label: 'Townhome',      img: '/icons/townhome.png'                    },
-  { value: 'condo',         label: 'Condo',         img: '/icons/condo.png'                       },
-  { value: 'multi-unit',    label: 'Multi-Unit',    img: '/icons/multi-unit.png',    large: true  },
+const PROPERTY_TYPES: { value: FunnelData['propertyType']; label: string; img: string; small?: boolean }[] = [
+  { value: 'single-family', label: 'Single Family', img: '/icons/single-family.png'               },
+  { value: 'townhome',      label: 'Townhome',      img: '/icons/townhome.png',   small: true     },
+  { value: 'condo',         label: 'Condo',         img: '/icons/condo.png',      small: true     },
+  { value: 'multi-unit',    label: 'Multi-Unit',    img: '/icons/multi-unit.png', small: true     },
 ];
 
 const TIMELINES: { value: FunnelData['decisionTimeline']; label: string; sub: string }[] = [
@@ -64,7 +64,7 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                     : 'border-gray-200 bg-white hover:border-gray-300'
                 }`}
               >
-                <img src={pt.img} alt={pt.label} className="w-14 h-14 object-contain flex-shrink-0" />
+                <img src={pt.img} alt={pt.label} className={`object-contain flex-shrink-0 ${pt.small ? 'w-[45px] h-[45px]' : 'w-14 h-14'}`} />
                 <p className="text-base font-bold text-gray-900 text-left">{pt.label}</p>
                 <div className="ml-auto flex-shrink-0">
                   {selected ? (

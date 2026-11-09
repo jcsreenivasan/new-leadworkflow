@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useFunnel } from './hooks/useFunnel';
 import { FunnelLayout } from './components/funnel/FunnelLayout';
+import { EmbeddedFunnel } from './components/funnel/EmbeddedFunnel';
 import { StepLoanType } from './components/funnel/steps/StepLoanType';
 import { StepOne } from './components/funnel/steps/StepOne';
 import { StepTwo } from './components/funnel/steps/StepTwo';
@@ -10,6 +11,8 @@ import { StepFour } from './components/funnel/steps/StepFour';
 import { LeadCapture } from './components/funnel/LeadCapture';
 import { LoadingScreen } from './components/funnel/LoadingScreen';
 import { RatesDisplay } from './components/funnel/RatesDisplay';
+
+const isEmbed = new URLSearchParams(window.location.search).has('embed');
 
 // ─── FunnelModal ───────────────────────────────────────────────────────────────
 
@@ -87,6 +90,8 @@ const RATINGS = [
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
 
+  if (isEmbed) return <EmbeddedFunnel />;
+
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
       {/* Nav */}
@@ -136,6 +141,16 @@ export default function App() {
             </svg>
             Get My Mortgage Rate
           </motion.button>
+
+          {/* Embedded funnel iframe */}
+          <div className="w-full mb-8 rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-100">
+            <iframe
+              src="/?embed"
+              title="Mortgage Rate Quote"
+              style={{ width: '100%', height: '750px', border: 'none', display: 'block' }}
+              allow="geolocation"
+            />
+          </div>
 
           {/* Trust badges */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
